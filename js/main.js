@@ -61,9 +61,11 @@ const createLi = (nome, email) => {
     imgDelete.setAttribute("alt", "Deletar");
     imgEdit.setAttribute("alt", "Editar");
     btEdit.setAttribute("onclick", "window.location.href='/html/editar.html';");
-    btDelete.setAttribute("onclick", "deletarParticipante()");
+    btDelete.setAttribute("onclick", "deletarParticipante(event)");
     btDelete.appendChild(imgDelete);
     btEdit.appendChild(imgEdit);
+    li.setAttribute("id", nome);
+    btDelete.setAttribute("id", nome);
 
     section.appendChild(h1);
     section.appendChild(btEdit);
@@ -77,8 +79,17 @@ const createLi = (nome, email) => {
     return li;
 }
 
-const deletarParticipante = () => {
+const deletarParticipante = (event) => {
+    let idBt = event.target.id;
+    console.log(idBt);
+    console.log(participantes);
+    participantes.forEach(element => {
+        if (element[0] == idBt) {
+            participantes.splice(element);
+        }
+    });
     
+    document.getElementById(idBt).remove();
 }
 
 function setObjectLocalStorage(key, value) {
