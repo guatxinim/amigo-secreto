@@ -11,15 +11,16 @@
     </header>
     <main>
         <section>
-            <form>
+            <form action="javascript:;" onsubmit="handleSubmit()">
                 <label for="nome">Nome:</label>
                 <input type="text" name="nome">
                 <label for="email">Email:</label>
                 <input type="email" name="email">
-                <button id="cadastra">Cadastrar</button>
-                <button id="cadastraAdd">Cadastrar e Adicionar Outro</button>
+                <button type="submit" id="cadastra" onclick="window.location.href='html/index.html';">Cadastrar</button>
+                <button type="submit" id="cadastraAdd">Cadastrar e Adicionar Outro</button>
             </form>
         </section>
     </main>
+    <script type="text/javascript" src="/js/main.js"></script>
 </body>
 </html>
