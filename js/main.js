@@ -1,24 +1,10 @@
 const ul = document.getElementsByTagName("ul")[0];
 
-const btDelete = document.createElement("button");
-const btEdit = document.createElement("button");
-const imgDelete = document.createElement("img");
-const imgEdit = document.createElement("img");
-
-imgDelete.setAttribute("src", "assets/mdi_delete.png");
-imgEdit.setAttribute("src", "assets/mdi_edit.png");
-imgDelete.setAttribute("alt", "Deletar");
-imgEdit.setAttribute("alt", "Editar");
-btEdit.setAttribute("onclick", "window.location.href='html/editar.html';");
-btDelete.setAttribute("onclick", deletarParticipante());
-btDelete.innerText = imgDelete;
-btEdit.innerText = imgEdit;
-
 let participantes = getObjectLocalStorage("participantes");
 
 if (participantes === null) {
     participantes = [];
-    setObjectLocalStorage("paricipantes", participantes);
+    setObjectLocalStorage("participantes", participantes);
 }
 
 window.addEventListener("load", () => {
@@ -26,6 +12,23 @@ window.addEventListener("load", () => {
         ul.appendChild(createLi(participante.nome, participante.email))
     }
 })
+
+window.addEventListener("load", () => {
+    let quantidade = participantes.length;
+    if (quantidade == 0) {
+        document.getElementById("semParticipante").style.display = "";
+        document.getElementById("comParticipante").style.display = "none";
+        document.getElementById("sortear").style.display = "none";
+    } else if (quantidade < 3) {
+        document.getElementById("semParticipante").style.display = "none";
+        document.getElementById("comParticipante").style.display = "";
+        document.getElementById("sortear").style.display = "none";
+    } else {
+        document.getElementById("semParticipante").style.display = "none";
+        document.getElementById("comParticipante").style.display = "";
+        document.getElementById("sortear").style.display = "";
+    }
+});
 
 const handleSubmit = () => {
     const nome = document.getElementsByName("nome")[0];
@@ -48,6 +51,19 @@ const createLi = (nome, email) => {
     const section = document.createElement("section");
     const h1 = document.createElement("h1");
     const p = document.createElement("p");
+    const btDelete = document.createElement("button");
+    const btEdit = document.createElement("button");
+    const imgDelete = document.createElement("img");
+    const imgEdit = document.createElement("img");
+
+    imgDelete.setAttribute("src", "/assets/deletar.png");
+    imgEdit.setAttribute("src", "/assets/editar.png");
+    imgDelete.setAttribute("alt", "Deletar");
+    imgEdit.setAttribute("alt", "Editar");
+    btEdit.setAttribute("onclick", "window.location.href='/html/editar.html';");
+    btDelete.setAttribute("onclick", "deletarParticipante()");
+    btDelete.appendChild(imgDelete);
+    btEdit.appendChild(imgEdit);
 
     section.appendChild(h1);
     section.appendChild(btEdit);
@@ -61,6 +77,10 @@ const createLi = (nome, email) => {
     return li;
 }
 
+const deletarParticipante = () => {
+    
+}
+
 function setObjectLocalStorage(key, value) {
     localStorage.setItem(key, JSON.stringify(value));
 }
@@ -68,20 +88,4 @@ function setObjectLocalStorage(key, value) {
 function getObjectLocalStorage(key){
     var value = localStorage.getItem(key);
     return value && JSON.parse(value);
-}
-
-const mostraHome = () => {
-    if (participantes.length == 0) {
-        document.getElementById("semParticipante").style.display = "";
-        document.getElementById("comParticipante").style.display = "null";
-        document.getElementById("sortear").style.display = "null";
-    } else if (participantes.length >= 3) {
-        document.getElementById("semParticipante").style.display = "null";
-        document.getElementById("comParticipante").style.display = "";
-        document.getElementById("sortear").style.display = "";
-    } else {
-        document.getElementById("semParticipante").style.display = "null";
-        document.getElementById("comParticipante").style.display = "";
-        document.getElementById("sortear").style.display = "null";
-    }
 }
